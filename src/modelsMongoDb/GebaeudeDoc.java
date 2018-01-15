@@ -8,23 +8,23 @@ import modelsSQL.Garage;
 public class GebaeudeDoc {
 	private String name,
 		strasse,
-		ort;
+		ort,
+		unternehmen;
 	private int plz,
 		strassenNr,
-		gNr,
-		uNr;
+		gNr;
 	private List<Buero> buerogebaude;
 	private List<Garage> garagen;
 	public GebaeudeDoc() {
 		super();
 	}
 	
-	public int getuNr() {
-		return uNr;
+	public String getUnternehmen() {
+		return unternehmen;
 	}
 
-	public void setuNr(int uNr) {
-		this.uNr = uNr;
+	public void setuNr(String unternehmen) {
+		this.unternehmen = unternehmen;
 	}
 
 	public String getName() {

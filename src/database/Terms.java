@@ -9,6 +9,7 @@ package database;
  */
 public class Terms {
 	public static final String MECHANIKER="mechaniker";
+	public static final String UNTERNEHMEN="amstec";
 	public static final String BUEROMITARBEITER="bueromitarbeiter";
 	public static final String[] dropStatementsMySQL={
 			"DROP TABLE garagemit",
