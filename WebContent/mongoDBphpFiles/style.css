@@ -1,5 +1,6 @@
 body {
     font-size: 19px;
+    background-color: #d3d7cf;
 }
 table{
     width: 50%;
@@ -74,4 +75,12 @@ form {
     color: white;
     border-radius: 3px;
     background: #800000;
+}
+.testUC {
+	
+}
+
+.menueForm {
+	background-color: #d3d7df;
+	width: 120px;
 }
