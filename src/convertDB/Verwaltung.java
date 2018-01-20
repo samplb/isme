@@ -46,19 +46,16 @@ public class Verwaltung {
 				+"\n Datenconvertierung von mySql amstec erfolgt");
 		Converter conv=new Converter();
 		try {
-			List<GebaeudeDoc> gList=conv.loadCollectionGebaeude();
-			List<MitarbeiterDoc> mList=conv.loadMongoCollectionMitarbeiter();
-			List<FahrzeugDoc> fList=conv.loadMongoCollectionFahrzeug();
 			ArrayList<Document> gDocList=new ArrayList<>();
 			ArrayList<Document> mDocList=new ArrayList<>();
 			ArrayList<Document> fDocList=new ArrayList<>();
-			for (GebaeudeDoc a:gList) {
+			for (GebaeudeDoc a:conv.loadCollectionGebaeude()) {
 				gDocList.add(conv.createGebaeudeDocument(a));
 			}
-			for(MitarbeiterDoc b:mList) {
+			for(MitarbeiterDoc b:conv.loadMongoCollectionMitarbeiter()) {
 				mDocList.add(conv.createMitarbeiterDocument(b));
 			}
-			for(FahrzeugDoc c:fList) {
+			for(FahrzeugDoc c:conv.loadMongoCollectionFahrzeug()) {
 				fDocList.add(conv.createFahrzeugDocument(c));
 			}
 			gebaeudeColl.insertMany(gDocList);

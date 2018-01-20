@@ -59,13 +59,15 @@ public class Converter {
 		try {
 			Garage x=null;
 			Buero y=null;
-			ArrayList<Garage> g=new ArrayList<>();
-			ArrayList<Buero> b= new ArrayList<>();
+			ArrayList<Garage> g=null;
+			ArrayList<Buero> b=null;
 			gebaeudeStmt=sqlconnection.prepareStatement(QueryTerms.queryAllGebaeude);
 			bueroMitStmt=sqlconnection.prepareStatement(QueryTerms.queryBueroMit);
 			garageMitStmt=sqlconnection.prepareStatement(QueryTerms.queryGarageMit);
 			ResultSet gebaeudeDoc=gebaeudeStmt.executeQuery();
 			while(gebaeudeDoc.next()) {
+				b= new ArrayList<>();
+				g=new ArrayList<>();
 				if(created!=null) {gebaeudeDocsList.add(created);}
 				created=new GebaeudeDoc();
 				created.setgNr(gebaeudeDoc.getInt(2));
@@ -78,38 +80,41 @@ public class Converter {
 				//fragt nach gnr ab
 				garageMitStmt.setInt(1, gebaeudeDoc.getInt(2));
 				ResultSet garageMitSet=garageMitStmt.executeQuery();
+				boolean foundGarage=false;
 				while(garageMitSet.next()) {
 					x=new Garage();
 					x.setGaragenr(garageMitSet.getInt(3));
 					x.setgNr(garageMitSet.getInt(1));
 					x.setMechaniker(garageMitSet.getInt(2));
 					g.add(x);
+					foundGarage=true;
 				}
 				//fragt nach gnr ab
 				bueroMitStmt.setInt(1, gebaeudeDoc.getInt(2));
 				ResultSet bueroMitSet=bueroMitStmt.executeQuery();
+				boolean foundBuero=false;
 				while(bueroMitSet.next()) {
 					y=new Buero();
 					y.setbNr(bueroMitSet.getInt(1));
 					y.setgNr(bueroMitSet.getInt(3));
 					y.setBueroangestellter(bueroMitSet.getInt(2));
 					b.add(y);
+					foundBuero=true;
 				}
-				created.setGaragenList(g);
-				created.setBuerogebaudeList(b);			
+				if(foundBuero) {
+					created.setGaragenList(null);
+					created.setBuerogebaudeList(b);
+				} else if(foundGarage) {
+					created.setGaragenList(g);
+					created.setBuerogebaudeList(null);
+				} else {
+					created.setGaragenList(null);
+					created.setBuerogebaudeList(null);
+				}
 			}
 		} catch (SQLException e) {
 			System.err.println("Error in createMongoCollectionGebaeude:"+e.getMessage());
-		}/* finally {
-			try {
-				gebaeudeStmt.close();
-				garageMitStmt.close();
-				bueroMitStmt.close();
-			} catch (SQLException e) {
-				System.err.println("Error in createMongoCollectionGebaeude closeStatements:"+e.getMessage());
-			}
-		}*/
-		System.out.println("GebäudedocsGaragen:"+
+		}
 		return gebaeudeDocsList;
 	}
 
@@ -135,13 +140,7 @@ public class Converter {
 			}
 		} catch(SQLException e) {
 			System.err.println("Error in loadMongoCollectionFahrzeug: "+e.getMessage());
-		}/* finally {
-			try {
-				fahrzeugStmt.close();
-			} catch (SQLException e) {
-				System.err.println("Error in loadMongoCollectionFahrzeug closeStatement: "+e.getMessage());
-			}
-		}*/
+		}
 		return fahrzeugDocsList;
 	}
 
@@ -200,16 +199,7 @@ public class Converter {
 			}
 		} catch(SQLException e) {
 			System.err.println("Error in loadMongoCollectionMitarbeiter: "+e.getMessage());
-		} /*finally {
-			try {
-				mitarbeiterStmt.close();
-				mechanikerStmt.close();
-				bueromitarbeiterStmt.close();
-				chefStmt.close();
-			} catch (SQLException e) {
-				System.err.println("Error in loadMongoCollectionMitarbeiter closeStatements: "+e.getMessage());
-			}
-		}*/
+		} 
 		return mitarbeiterDocsList;
 	}
 	/**

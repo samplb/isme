@@ -25,8 +25,8 @@ public class CreateGebaeudeDoc {
 	public void createGebaeudeDoc(GebaeudeDoc actual) throws NoGebaudeDocException {
 		if(actual==null) throw new NoGebaudeDocException();
 		doc=new Document();
-		Document gmit=new Document(),
-				bmit=new Document();
+		Document gmit=null,
+				bmit=null;
 		doc.append("gNr", actual.getgNr());
 		doc.append("name", actual.getName());
 		doc.append("strasse", actual.getStrasse());
@@ -38,13 +38,13 @@ public class CreateGebaeudeDoc {
 		ArrayList<Document> geb=new ArrayList<>();
 		ArrayList<Integer> mitList=new ArrayList<>();
 		// wenn bueros dabei, mit mitarbeiterliste hinzufügen
-		if(bueroList.isEmpty()) {
+		if(bueroList==null) {
 			doc.append("buero", null);
-			System.out.println("noBuero!");
 		} else {
 			for( Buero bueroTemp:bueroList) {
-				assert (actual.getgNr()!=bueroTemp.getgNr()):"Falsches Buero in GebaudeDoc";
-				bmit.clear();
+				assert (actual.getgNr()!=bueroTemp.getgNr()):"Falsches Buero in GebaeudeDoc";
+				bmit=new Document();
+				mitList=new ArrayList<>();
 				int bnum=bueroTemp.getbNr();
 				bmit.append("bNr", bnum);
 				for( Buero Temp:bueroList) {
@@ -53,23 +53,20 @@ public class CreateGebaeudeDoc {
 					}
 				}
 				bmit.append("mitarbeiter_buero", mitList);
-				System.out.println("MitList: "+mitList.size());
-				mitList.clear();
 				geb.add(bmit);
 			}
-			doc.put("buero", geb);
-			System.out.println("Bueros: "+geb.size());
-			geb.clear();
+			doc.append("buero", geb);
+			//geb.clear();
 		}
 		List<Garage> garageList=actual.getGaragenList();
 		// wenn garagen dabei, mit mitarbeiterliste hinzufügen
-		if(garageList.isEmpty()) {
+		if(garageList==null) {
 			doc.put("garage", null);
-			System.out.println("noGarage");
 		} else {
 			for( Garage garageTemp:garageList) {
-				gmit.clear();
-				assert (actual.getgNr()!=garageTemp.getgNr()):"Falsches Buero in GebaudeDoc";
+				gmit=new Document();
+				mitList=new ArrayList<>();
+				assert (actual.getgNr()!=garageTemp.getgNr()):"Falsches Buero in GebaeudeDoc";
 				int gnr=garageTemp.getGaragenr();
 				gmit.append("garageNr", gnr);
 				for(Garage x : garageList) {
@@ -78,13 +75,10 @@ public class CreateGebaeudeDoc {
 					}
 				}
 				gmit.append("mitarbeiter_garage", mitList);
-				System.out.println("MitList: "+mitList.size());
-				mitList.clear();
 				geb.add(gmit);
 			}
-			doc.put("garage", geb);
-			System.out.println("garagen: "+geb.size());
-			geb.clear();
+			doc.append("garage", geb);
+			//geb.clear();
 		}
 	}
 	/**
