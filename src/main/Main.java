@@ -22,12 +22,12 @@ public class Main {
 			boolean check=true;
 			String answer="";
 			while(check) {
-				System.out.println("Do you wish to upload Demo-Content in mySql Database?(yes/no)");
+				System.out.println("Do you wish to upload Demo-Content in mySql Database? Please enter 'insert'.\n Or convert mySql Data to MongoDB? Please enter 'convert'.");
 				System.out.println("Please enter 'exit' to close Program.");
 				answer=in.next().toLowerCase();
-				if(answer.matches("yes")) {
+				if(answer.matches("insert")) {
 					DemoDBInsertion.main(args);
-				} else if(answer.matches("no")) {
+				} else if(answer.matches("convert")) {
 					Verwaltung.main(args);
 				}else if(answer.matches("exit")) {
 					check=false;
