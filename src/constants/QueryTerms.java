@@ -4,7 +4,7 @@ public class QueryTerms {
 	public static final String queryBuero="SELECT bnr, anzahlmit, gnr FROM buero WHERE gnr = ?";
 	public static final String queryBueroMit="SELECT bnr, mnr, gnr FROM bueromit WHERE gnr = ?";
 	public static final String queryBueroMitarbeiter="SELECT gehalt, telefonnummer, svnr, mnr FROM bueromitarbeiter WHERE mnr = ?";
-	public static final String queryMechaniker="SELECT svnr, gehalt, telefonnummer, `mnr` FROM mechaniker WHERE mnr = ?";
+	public static final String queryMechaniker="SELECT svnr, gehalt, telefonnummer, mnr FROM mechaniker WHERE mnr = ?";
 	public static final String queryChef="SELECT mnr FROM chef";
 	public static final String queryAllFahrzeug="SELECT marke, baujahr, kennzeichen, mnr_mechaniker, mnr_buero FROM fahrzeug";
 	public static final String queryGarage="SELECT garagenr, anzahlmit, gnr FROM garage WHERE gnr = ?";

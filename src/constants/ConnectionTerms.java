@@ -6,5 +6,5 @@ public class ConnectionTerms {
 	public static final String DATABASENAME="amstec";
 	public static final String COLLECTION_MITARBEITER="mitarbeiter";
 	public static final String COLLECTION_FAHRZEUG="fahrzeug";
-	public static final String COLLECTION_GEBAEUDE="gabaeude";
+	public static final String COLLECTION_GEBAEUDE="gebaeude";
 }

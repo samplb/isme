@@ -1,15 +1,9 @@
 package modelsMongoDb.createDocs;
 
-import javax.print.Doc;
-
 import org.bson.Document;
 
-import com.mongodb.BasicDBObject;
-
-import convertDB.Constants;
 import modelsMongoDb.MitarbeiterDoc;
 import modelsMongoDb.Exceptions.NoGebaeudeDocException;
-import modelsMongoDb.Exceptions.NoGebaudeDocException;
 /**
  * creates a BasicDBObject for Collection.insert()
  * @author bs

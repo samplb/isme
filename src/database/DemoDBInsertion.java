@@ -47,6 +47,8 @@ public class DemoDBInsertion {
 	    int gebäudeNr=1;
 		int bueronr=1;
 		int garagennr=1;
+		int garageMit=1;
+		int bueroMit=1;
 	
 // füge neue unternehmen ein.
 				System.out.println("insertUnternehmen");
@@ -132,7 +134,7 @@ public class DemoDBInsertion {
 
 // füge gebäude ein
 		System.out.println("insertGebäude");
-		
+		int knum=kundenNrList.size()-1;
 	   for(int j=0; j<MySqlTerms.maxGebäude;j++) {
 	    	boolean gebNr=false;
 	    	while(!gebNr) {
@@ -153,15 +155,19 @@ public class DemoDBInsertion {
 	   	        	return;
 	   	        }
 	    	}
+    		int mnr;
 	    	//50%pro gebäude.
 	    	if(randomBoolean()) {
 //neues Büro
 	    		boolean buenr=false;
+	    		int bnr;
+	    		int gnr;
 	    		while(!buenr) {
 	    			int anzahlmit=randomIntExclNull(MySqlTerms.maxMitarbeiter);
 	    			int bList=bNrList.size()+1;
-	    			int bnr=gebäudeNrList.size()-1;
-	    			bueronr=connection.neuesBuero(bList, anzahlmit,gebäudeNrList.get(bnr) );
+	    			bnr=gebäudeNrList.size()-1;
+	    			gnr=gebäudeNrList.get(bnr);
+	    			bueronr=connection.neuesBuero(bList, anzahlmit,gnr );
 	    			bNrList.add(bueronr);
 	    			bnr=++bueronr;
 	    			if(bnr>0)  {
@@ -170,15 +176,22 @@ public class DemoDBInsertion {
 	  	   	        	System.err.println("ENDEBüro wegen ERROR");
 	  	   	        	return;
 	  	   	        }
+	    			if(knum<0) continue;
+	    			mnr=kundenNrList.get(knum);
+	    			knum--;
+	    			bueroMit=connection.neuesBueroMit(bList, mnr, gnr);
+	    			;
 	    		}
 	    	} else {
 //neue Garage
 	    		boolean ganr=false;
 	    		while(!ganr) {
 	    			int anzahlmit=randomInt(MySqlTerms.maxMitarbeiter);
-	    			garageNrList.add(gebäudeNrList.get(gebäudeNrList.size()-1));
+	    			int gnr;
 	    			int garnr=garageNrList.size()+1;
-	    			garagennr=connection.neueGarage(garnr, anzahlmit,gebäudeNrList.get(gebäudeNrList.size()-1 ) );
+	    			gnr=gebäudeNrList.get(gebäudeNrList.size()-1 );
+	    			garageMit=garnr;
+	    			garagennr=connection.neueGarage(garnr, anzahlmit,gnr );
 	    			garageNrList.add(garagennr);
 	    			garnr=++garagennr;
 	    			if(garnr>0)  {
@@ -187,6 +200,10 @@ public class DemoDBInsertion {
 	  	   	        	System.err.println("ENDEBüro wegen ERROR");
 	  	   	        	return;
 	  	   	        }
+	    			if(knum<0) continue;
+	    			mnr=kundenNrList.get(knum);
+	    			knum--;
+	    			bueroMit=connection.neueGarageMit(mnr,garageMit, gnr);
 	    		}
 	    	}
 	    }

@@ -2,8 +2,6 @@ package modelsMongoDb.createDocs;
 
 import org.bson.Document;
 
-import com.mongodb.BasicDBObject;
-
 import modelsMongoDb.FahrzeugDoc;
 import modelsMongoDb.Exceptions.NoFahrzeugDocException;
 /**

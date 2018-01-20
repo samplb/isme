@@ -1,5 +1,6 @@
 package modelsMongoDb.createDocs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
@@ -39,6 +40,7 @@ public class CreateGebaeudeDoc {
 		// wenn bueros dabei, mit mitarbeiterliste hinzufügen
 		if(bueroList.isEmpty()) {
 			doc.append("buero", null);
+			System.out.println("noBuero!");
 		} else {
 			for( Buero bueroTemp:bueroList) {
 				assert (actual.getgNr()!=bueroTemp.getgNr()):"Falsches Buero in GebaudeDoc";
@@ -51,16 +53,19 @@ public class CreateGebaeudeDoc {
 					}
 				}
 				bmit.append("mitarbeiter_buero", mitList);
+				System.out.println("MitList: "+mitList.size());
 				mitList.clear();
 				geb.add(bmit);
 			}
 			doc.put("buero", geb);
+			System.out.println("Bueros: "+geb.size());
 			geb.clear();
 		}
 		List<Garage> garageList=actual.getGaragenList();
 		// wenn garagen dabei, mit mitarbeiterliste hinzufügen
 		if(garageList.isEmpty()) {
 			doc.put("garage", null);
+			System.out.println("noGarage");
 		} else {
 			for( Garage garageTemp:garageList) {
 				gmit.clear();
@@ -73,10 +78,12 @@ public class CreateGebaeudeDoc {
 					}
 				}
 				gmit.append("mitarbeiter_garage", mitList);
+				System.out.println("MitList: "+mitList.size());
 				mitList.clear();
 				geb.add(gmit);
 			}
 			doc.put("garage", geb);
+			System.out.println("garagen: "+geb.size());
 			geb.clear();
 		}
 	}

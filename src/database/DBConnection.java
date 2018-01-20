@@ -275,59 +275,57 @@ private Connection conn = null;
 		    nummerQuery.close();
 		    return ++nummer;
 		} catch(SQLException e) {
-			System.err.println("SQLException: "+e.getMessage()+"_state:_"+e.getSQLState());
+			System.err.println("SQLExceptionFahrzeug: "+e.getMessage()+"_state:_"+e.getSQLState());
 		}
 		return -1;
 	}
-	/*public int neuesBueroMit() {
+	public int neuesBueroMit(int bnr, int mnr, int gnr) {
 	try {
-		System.out.println("insertMitarbeiter:"+vorname+"_"+nachname);
-		final PreparedStatement insert = conn.prepareStatement("INSERT INTO `mitarbeiter`(`name`, `nachname`,`unr`) VALUES (?, ?, ?)");
-	    insert.setString(1, vorname);
-	    insert.setString(2, nachname);
-	    insert.setInt(3, unr);
+		final PreparedStatement insert = conn.prepareStatement("INSERT INTO "
+				+ "`bueromit`(`bnr`, `mnr`,`gnr`) VALUES (?, ?, ?)");
+	    insert.setInt(1, bnr);
+	    insert.setInt(2, mnr);
+	    insert.setInt(3, gnr);
 	    insert.execute();
 	    insert.close();
 	    
 	    final PreparedStatement nummerQuery = conn.prepareStatement("SELECT "
-	    		+ "MAX(garagenr) AS garagenr FROM garage");
+	    		+ "COUNT(*) AS gesamtlist FROM bueromit");
 	    ResultSet generatedKeys = nummerQuery.executeQuery();
 	    generatedKeys.next();
-	    int nummer = generatedKeys.getInt("gnr");
+	    int nummer = generatedKeys.getInt("gesamtlist");
 	    generatedKeys.close();
 	    nummerQuery.close();
-	    return ++nummer;
+	    return nummer;
 	  
 		
 	} catch(SQLException e) {
-		System.err.println( "SQLException: "+e.getMessage();
+		System.err.println( "SQLExceptionBueroMit: "+e.getMessage());
 	}
 	return -1;
 }
-public int neueGarageMit() {
+public int neueGarageMit(int mnr, int garagenr, int gnr) {
 	try {
-		System.out.println("insertMitarbeiter:"+vorname+"_"+nachname);
-		final PreparedStatement insert = conn.prepareStatement("INSERT INTO `mitarbeiter`(`name`, `nachname`,`unr`) VALUES (?, ?, ?)");
-	    insert.setString(1, vorname);
-	    insert.setString(2, nachname);
-	    insert.setInt(3, unr);
+		final PreparedStatement insert = conn.prepareStatement("INSERT INTO "
+				+ "`garagemit`(`mnr`, `garagenr`, `gnr`) VALUES (?, ?, ?)");
+	    insert.setInt(1, mnr);
+	    insert.setInt(2, garagenr);
+	    insert.setInt(3, gnr);
 	    insert.execute();
 	    insert.close();
 	    
 	    final PreparedStatement nummerQuery = conn.prepareStatement("SELECT "
-	    		+ "MAX(garagenr) AS garagenr FROM garage");
+	    		+ "COUNT(*) AS gesamtlist FROM garagemit");
 	    ResultSet generatedKeys = nummerQuery.executeQuery();
 	    generatedKeys.next();
-	    int nummer = generatedKeys.getInt("gnr");
+	    int nummer = generatedKeys.getInt("gesamtlist");
 	    generatedKeys.close();
 	    nummerQuery.close();
-	    return ++nummer;
-	  
-		
+	    return nummer;
 	} catch(SQLException e) {
-		System.err.println("SQLException: "+e.getMessage();
+		System.err.println("SQLExceptionGarageMit: "+e.getMessage());
 	}
 	return -1;
 }
-*/
+
 }

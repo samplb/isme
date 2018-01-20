@@ -8,6 +8,9 @@ import java.util.List;
 
 import org.bson.Document;
 
+import com.mongodb.client.MongoCollection;
+
+import constants.ConnectionTerms;
 import modelsMongoDb.FahrzeugDoc;
 import modelsMongoDb.GebaeudeDoc;
 import modelsMongoDb.MitarbeiterDoc;
@@ -27,8 +30,15 @@ public class Verwaltung {
 	 */
 	public static void main(String[] args) {
 		final MongoDBConnection mongoConnection= new MongoDBConnection();
+		MongoCollection<Document> fahrzeugColl=null;
+		MongoCollection<Document> mitarbeiterColl=null;
+		MongoCollection<Document> gebaeudeColl=null;
 		try {
 			mongoConnection.connect();
+			mongoConnection.createDatabase(ConnectionTerms.DATABASENAME);
+			fahrzeugColl=mongoConnection.createNewFahrzeugCollection();
+			gebaeudeColl=mongoConnection.createNewGebaeudeCollection();
+			mitarbeiterColl=mongoConnection.createNewMitarbeiterCollection();
 		} catch (Exception e) {
 			System.err.println("MongoDBConnectionError: "+e.getMessage());
 		}
@@ -51,14 +61,20 @@ public class Verwaltung {
 			for(FahrzeugDoc c:fList) {
 				fDocList.add(conv.createFahrzeugDocument(c));
 			}
+			gebaeudeColl.insertMany(gDocList);
+			System.out.println("insertGebaeudeCollection");
+			mitarbeiterColl.insertMany(mDocList);
+			System.out.println("insertMitarbeiterCollection");
+			fahrzeugColl.insertMany(fDocList);
+			System.out.println("insertFahrzeugCollection");
 		}catch (NoGebaudeDocException e) {
 			e.printStackTrace(System.err);
 		} catch (NoGebaeudeDocException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 		} catch (NoFahrzeugDocException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 		}
 	}
 

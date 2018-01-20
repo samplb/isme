@@ -3,9 +3,7 @@ package modelsMongoDb;
 import java.util.List;
 
 import modelsSQL.Buero;
-import modelsSQL.BueroMit;
 import modelsSQL.Garage;
-import modelsSQL.GarageMit;
 /**
  * GebäudeDoc
  * @author bs
@@ -19,8 +17,8 @@ public class GebaeudeDoc {
 	private int plz,
 		strassenNr,
 		gNr;
-	private List<Buero> buerogebaudeList;
-	private List<Garage> garagenList;
+	private List<Buero> buerogebaudeList=null;
+	private List<Garage> garagenList=null;
 	
 	public GebaeudeDoc() {
 		super();

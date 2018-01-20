@@ -43,7 +43,7 @@ public class MongoDBConnection {
 		return this.mongoConnection;
 	}
 	/**
-	 * creates Fahrzeug-Collection
+	 * creates Fahrzeug-Collection and drops existing collection
 	 * @param collectionName
 	 * @throws NoDatabaseFoundException
 	 */
@@ -59,7 +59,7 @@ public class MongoDBConnection {
 		return fahrzeug;
 	}
 	/**
-	 * creates mitarbeiter-Collection
+	 * creates mitarbeiter-Collection and drops existing collection
 	 * @param collectionName
 	 * @throws NoDatabaseFoundException
 	 */
@@ -75,7 +75,7 @@ public class MongoDBConnection {
 		return mitarbeiter;
 	}
 	/**
-	 * creates gebaeude-Collection
+	 * creates gebaeude-Collection and drops existing collection
 	 * @param collectionName
 	 * @throws NoDatabaseFoundException
 	 */
