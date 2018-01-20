@@ -6,6 +6,8 @@ package database;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import constants.MySqlTerms;
+
 /**
  * @author bs
  *
@@ -48,10 +50,10 @@ public class DemoDBInsertion {
 	
 // füge neue unternehmen ein.
 				System.out.println("insertUnternehmen");
-			    for(int j=0; j<Terms.maxUnternehmen;j++) {
+			    for(int j=0; j<MySqlTerms.maxUnternehmen;j++) {
 			    	boolean untNr=false;
 			    	while(!untNr) {
-			    		String name=randomString(Terms.unternehmensnamen);
+			    		String name=randomString(MySqlTerms.unternehmensnamen);
 			    		unternehmenNr=connection.neuesUnternehmen(name,unternehmenNr);
 			    		unternehmenNrList.add(unternehmenNr);
 			    		if(++unternehmenNr>0)  {
@@ -64,12 +66,12 @@ public class DemoDBInsertion {
 			    }		
 //  Mitarbeiter erstellen;
 		System.out.println("insertMitarbeiter");
-	    for(int i=0; i<Terms.maxMitarbeiter; i++) {
+	    for(int i=0; i<MySqlTerms.maxMitarbeiter; i++) {
 	      boolean knr = false;
 	      while (!knr) {
-	        String vorname = randomString(Terms.vornamen);
-	        String nachname = randomString(Terms.nachnamen);
-	        int unr=randomIntExclNull(Terms.maxUnternehmen);
+	        String vorname = randomString(MySqlTerms.vornamen);
+	        String nachname = randomString(MySqlTerms.nachnamen);
+	        int unr=randomIntExclNull(MySqlTerms.maxUnternehmen);
 	        kundennummer = connection.neuerMitarbeiter(vorname, nachname, unr);
 	        kundenNrList.add(kundennummer);
 	        int kundennummerTemp=++kundennummer;
@@ -86,8 +88,8 @@ public class DemoDBInsertion {
 //neues Mechaniker
 	    		boolean mechnr=false;
 	    		while(!mechnr) {
-	    			int svnr=randomIntExclNull(Terms.maxMitarbeiter);
-	    			int gehalt=randomIntExclNull(Terms.maxMitarbeiter);
+	    			int svnr=randomIntExclNull(MySqlTerms.maxMitarbeiter);
+	    			int gehalt=randomIntExclNull(MySqlTerms.maxMitarbeiter);
 	    			int telefonnummer=randomIntExclNull(1000000000);
 	    			int mnr=kundenNrList.get(kundenNrList.size()-1);
 	    			mechNrList.add(mnr);
@@ -106,8 +108,8 @@ public class DemoDBInsertion {
 //neue Büromitarbeiter
 	    		boolean buernrB=false;
 	    		while(!buernrB) {
-	    			int svnr=randomIntExclNull(Terms.maxMitarbeiter);
-	    			int gehalt=randomIntExclNull(Terms.maxMitarbeiter);
+	    			int svnr=randomIntExclNull(MySqlTerms.maxMitarbeiter);
+	    			int gehalt=randomIntExclNull(MySqlTerms.maxMitarbeiter);
 	    			int telefonnummer=randomIntExclNull(1000000000);
 	    			int mnr=kundenNrList.get(kundenNrList.size()-1);
 	    			bueroNrList.add(mnr);
@@ -131,12 +133,12 @@ public class DemoDBInsertion {
 // füge gebäude ein
 		System.out.println("insertGebäude");
 		
-	   for(int j=0; j<Terms.maxGebäude;j++) {
+	   for(int j=0; j<MySqlTerms.maxGebäude;j++) {
 	    	boolean gebNr=false;
 	    	while(!gebNr) {
-	    		String name=randomString(Terms.gebäudenamen);
-	    		String strasse=randomString(Terms.strassennamen);
-	    		String ort=randomString(Terms.ortnamen);
+	    		String name=randomString(MySqlTerms.gebäudenamen);
+	    		String strasse=randomString(MySqlTerms.strassennamen);
+	    		String ort=randomString(MySqlTerms.ortnamen);
 	    		int plz=randomInt(9999);
 	    		if(plz<1000) plz=plz+1000; //da plz 4stellig
 	    		int snr=randomIntExclNull(100);
@@ -156,7 +158,7 @@ public class DemoDBInsertion {
 //neues Büro
 	    		boolean buenr=false;
 	    		while(!buenr) {
-	    			int anzahlmit=randomIntExclNull(Terms.maxMitarbeiter);
+	    			int anzahlmit=randomIntExclNull(MySqlTerms.maxMitarbeiter);
 	    			int bList=bNrList.size()+1;
 	    			int bnr=gebäudeNrList.size()-1;
 	    			bueronr=connection.neuesBuero(bList, anzahlmit,gebäudeNrList.get(bnr) );
@@ -173,7 +175,7 @@ public class DemoDBInsertion {
 //neue Garage
 	    		boolean ganr=false;
 	    		while(!ganr) {
-	    			int anzahlmit=randomInt(Terms.maxMitarbeiter);
+	    			int anzahlmit=randomInt(MySqlTerms.maxMitarbeiter);
 	    			garageNrList.add(gebäudeNrList.get(gebäudeNrList.size()-1));
 	    			int garnr=garageNrList.size()+1;
 	    			garagennr=connection.neueGarage(garnr, anzahlmit,gebäudeNrList.get(gebäudeNrList.size()-1 ) );
@@ -195,11 +197,11 @@ public class DemoDBInsertion {
 	    
 //Fahrzeug
         System.out.println("insertFahrzeug");
-	    for(int j=0; j<Terms.maxFahrzeug;j++) {
+	    for(int j=0; j<MySqlTerms.maxFahrzeug;j++) {
 	    	boolean fahrzNr=false;
 	    	int fahrzeugNr=1;
 	    	while(!fahrzNr) {
-	    		String marke=randomString(Terms.modelle);
+	    		String marke=randomString(MySqlTerms.modelle);
 	    		int baujahr=randomInt(10000);
 	    		int mnr_mechaniker=mechNrList.get(randomInt(mechNrList.size()));
 	    		int mnr_buero=bueroNrList.get(randomInt(bueroNrList.size()));

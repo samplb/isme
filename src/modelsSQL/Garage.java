@@ -1,7 +1,5 @@
 package modelsSQL;
 
-import java.util.List;
-
 public class Garage {
 	private int garagenr,
 		gNr,

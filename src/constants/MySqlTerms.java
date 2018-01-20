@@ -1,16 +1,19 @@
 /**
  * 
  */
-package database;
+package constants;
 
 /**
  * @author bs
  * Liste aller möglichen Daten zum einfügen.
  */
-public class Terms {
+public class MySqlTerms {
 	public static final String MECHANIKER="mechaniker";
 	public static final String UNTERNEHMEN="amstec";
 	public static final String BUEROMITARBEITER="bueromitarbeiter";
+	//query abfragen im converter
+	
+	
 	public static final String[] dropStatementsMySQL={
 			"DROP TABLE garagemit",
 			"DROP TABLE bueromit",

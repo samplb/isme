@@ -3,8 +3,14 @@ package modelsMongoDb;
 import java.util.List;
 
 import modelsSQL.Buero;
+import modelsSQL.BueroMit;
 import modelsSQL.Garage;
-
+import modelsSQL.GarageMit;
+/**
+ * GebäudeDoc
+ * @author bs
+ *
+ */
 public class GebaeudeDoc {
 	private String name,
 		strasse,
@@ -13,8 +19,9 @@ public class GebaeudeDoc {
 	private int plz,
 		strassenNr,
 		gNr;
-	private List<Buero> buerogebaude;
-	private List<Garage> garagen;
+	private List<Buero> buerogebaudeList;
+	private List<Garage> garagenList;
+	
 	public GebaeudeDoc() {
 		super();
 	}
@@ -22,11 +29,6 @@ public class GebaeudeDoc {
 	public String getUnternehmen() {
 		return unternehmen;
 	}
-
-	public void setuNr(String unternehmen) {
-		this.unternehmen = unternehmen;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -63,17 +65,38 @@ public class GebaeudeDoc {
 	public void setgNr(int gNr) {
 		this.gNr = gNr;
 	}
-	public List<Buero> getBuerogebaude() {
-		return buerogebaude;
+
+	public List<Buero> getBuerogebaudeList() {
+		return buerogebaudeList;
 	}
-	public void setBuerogebaude(List<Buero> buerogebaude) {
-		this.buerogebaude = buerogebaude;
+
+	public void setBuerogebaudeList(List<Buero> buerogebaudeList) {
+		this.buerogebaudeList = buerogebaudeList;
 	}
-	public List<Garage> getGaragen() {
-		return garagen;
+
+	public List<Garage> getGaragenList() {
+		return garagenList;
 	}
-	public void setGaragen(List<Garage> garagen) {
-		this.garagen = garagen;
+
+	public void setGaragenList(List<Garage> garagenList) {
+		this.garagenList = garagenList;
 	}
+
+	public void setUnternehmen(String unternehmen) {
+		this.unternehmen = unternehmen;
+	}
+
+	public void setNull() {
+		this.name = null;
+		this.strasse = null;
+		this.ort = null;
+		this.unternehmen = null;
+		this.plz = 0;
+		this.strassenNr = 0;
+		this.gNr = 0;
+		this.buerogebaudeList.clear();
+		this.garagenList.clear();
+	}
+	
 	
 }

@@ -6,6 +6,8 @@ package database;
 
 import java.sql.*;
 
+import constants.MySqlTerms;
+
 /**
  * @author bs
  *
@@ -31,7 +33,7 @@ private Connection conn = null;
 	  }
 	}
 	public void createTables() throws SQLException {
-		String[] create=Terms.createStatementsMySQL;
+		String[] create=MySqlTerms.createStatementsMySQL;
 		Statement stm=conn.createStatement();
 		for(String x:create) {
 			stm.executeUpdate(x);
@@ -48,7 +50,7 @@ private Connection conn = null;
 	  }
 	}
 	public void dropTables() throws SQLException {
-		String[] dropStatements= Terms.dropStatementsMySQL;
+		String[] dropStatements= MySqlTerms.dropStatementsMySQL;
 		Statement stm=conn.createStatement();
 		for(String x:dropStatements) {
 			stm.executeUpdate(x);
