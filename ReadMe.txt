@@ -7,3 +7,4 @@ Hierzu rechtsklick auf das Projekt-Build Path - Configure Build Path - Libraries
 
 Link: http://mongodb.github.io/mongo-java-driver/3.4/driver/getting-started/installation/
 
+Programm ausführen über main.Main und den anweisungen folgen.

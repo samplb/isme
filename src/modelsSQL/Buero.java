@@ -1,7 +1,5 @@
 package modelsSQL;
 
-import java.util.List;
-
 public class Buero {
 	private int bNr,
 		gNr,

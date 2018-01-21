@@ -4,29 +4,29 @@ import java.util.List;
 
 import modelsSQL.Buero;
 import modelsSQL.Garage;
-
+/**
+ * GebäudeDoc
+ * @author bs
+ *
+ */
 public class GebaeudeDoc {
 	private String name,
 		strasse,
-		ort;
+		ort,
+		unternehmen;
 	private int plz,
 		strassenNr,
-		gNr,
-		uNr;
-	private List<Buero> buerogebaude;
-	private List<Garage> garagen;
+		gNr;
+	private List<Buero> buerogebaudeList=null;
+	private List<Garage> garagenList=null;
+	
 	public GebaeudeDoc() {
 		super();
 	}
 	
-	public int getuNr() {
-		return uNr;
+	public String getUnternehmen() {
+		return unternehmen;
 	}
-
-	public void setuNr(int uNr) {
-		this.uNr = uNr;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -63,17 +63,38 @@ public class GebaeudeDoc {
 	public void setgNr(int gNr) {
 		this.gNr = gNr;
 	}
-	public List<Buero> getBuerogebaude() {
-		return buerogebaude;
+
+	public List<Buero> getBuerogebaudeList() {
+		return buerogebaudeList;
 	}
-	public void setBuerogebaude(List<Buero> buerogebaude) {
-		this.buerogebaude = buerogebaude;
+
+	public void setBuerogebaudeList(List<Buero> buerogebaudeList) {
+		this.buerogebaudeList = buerogebaudeList;
 	}
-	public List<Garage> getGaragen() {
-		return garagen;
+
+	public List<Garage> getGaragenList() {
+		return garagenList;
 	}
-	public void setGaragen(List<Garage> garagen) {
-		this.garagen = garagen;
+
+	public void setGaragenList(List<Garage> garagenList) {
+		this.garagenList = garagenList;
 	}
+
+	public void setUnternehmen(String unternehmen) {
+		this.unternehmen = unternehmen;
+	}
+
+	public void setNull() {
+		this.name = null;
+		this.strasse = null;
+		this.ort = null;
+		this.unternehmen = null;
+		this.plz = 0;
+		this.strassenNr = 0;
+		this.gNr = 0;
+		this.buerogebaudeList.clear();
+		this.garagenList.clear();
+	}
+	
 	
 }

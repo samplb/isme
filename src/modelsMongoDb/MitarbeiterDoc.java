@@ -1,12 +1,10 @@
 package modelsMongoDb;
 
-import modelsSQL.BueroMitarbeiter;
-import modelsSQL.Mechaniker;
-
 public class MitarbeiterDoc {
 	private String vorname,
 		telefonnummer,//integer zu klein
 		anstellung,
+		unternehmen,
 		nachname;
 	private int mNr,//die unique id
 		chef,
@@ -69,6 +67,24 @@ public class MitarbeiterDoc {
 	}
 	public void setGehalt(double gehalt) {
 		this.gehalt = gehalt;
+	}
+	public String getUnternehmen() {
+		return unternehmen;
+	}
+	public void setUnternehmen(String unternehmen) {
+		this.unternehmen = unternehmen;
+	}
+	public void setNull() {
+		this.vorname = null;
+		this.telefonnummer = null;
+		this.anstellung = null;
+		this.unternehmen = null;
+		this.nachname = null;
+		this.mNr = 0;
+		this.chef = 0;
+		this.svNr = 0;
+		this.gNr = 0;
+		this.gehalt = 0;
 	}
 	
 }

@@ -59,7 +59,7 @@ if(isset($_POST['update'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>AMSTEC</title>
+	<title>AMSTEC_Verwaltung</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	
 </head>
@@ -116,9 +116,8 @@ if(isset($_POST['update'])){
 
 
 
-	<form method="post" action="server.php" 
-	
-			<input type="hidden" name="mnr" value="<?php echo $mnr; ?>">
+	<form method="post" action="server.php" >
+	<input type="hidden" name="mnr" value="<?php echo $mnr; ?>">
 	
 		<div class="input-group">
 			<label>Name</label>
@@ -199,7 +198,7 @@ if(isset($_POST['update'])){
 
 
 
-	<form method="post" action="server.php" 
+	<form method="post" action="server.php" >
 	
 			<input type="hidden" name="gnr" value="<?php echo $gnr; ?>">
 	
@@ -236,7 +235,7 @@ if(isset($_POST['update'])){
 		<div class="input-group">
 			<label>Unternehmensnummer</label>
 						<input type="text" name="unr" value="<?php echo $unr; ?>">
-		</div
+		</div>
 		
 		<div class="input-group">
 		
@@ -295,7 +294,7 @@ if(isset($_POST['update'])){
 
 
 
-	<form method="post" action="server.php" 
+	<form method="post" action="server.php" >
 	
 			<input type="hidden" name="mnr" value="<?php echo $mnr; ?>">
 	
