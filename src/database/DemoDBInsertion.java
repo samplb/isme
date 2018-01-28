@@ -55,7 +55,7 @@ public class DemoDBInsertion {
 			    for(int j=0; j<MySqlTerms.maxUnternehmen;j++) {
 			    	boolean untNr=false;
 			    	while(!untNr) {
-			    		String name=randomString(MySqlTerms.unternehmensnamen);
+			    		String name=MySqlTerms.unternehmensnamen;
 			    		unternehmenNr=connection.neuesUnternehmen(name,unternehmenNr);
 			    		unternehmenNrList.add(unternehmenNr);
 			    		if(++unternehmenNr>0)  {
@@ -73,7 +73,7 @@ public class DemoDBInsertion {
 	      while (!knr) {
 	        String vorname = randomString(MySqlTerms.vornamen);
 	        String nachname = randomString(MySqlTerms.nachnamen);
-	        int unr=randomIntExclNull(MySqlTerms.maxUnternehmen);
+	        int unr=unternehmenNrList.get(0);
 	        kundennummer = connection.neuerMitarbeiter(vorname, nachname, unr);
 	        kundenNrList.add(kundennummer);
 	        int kundennummerTemp=++kundennummer;
@@ -144,7 +144,7 @@ public class DemoDBInsertion {
 	    		int plz=randomInt(9999);
 	    		if(plz<1000) plz=plz+1000; //da plz 4stellig
 	    		int snr=randomIntExclNull(100);
-	    		int unr=unternehmenNrList.get(randomIntExclNull(unternehmenNrList.size()));
+	    		int unr=unternehmenNrList.get(0);
 	    		gebäudeNr=connection.neuesGebaeude(name,strasse, ort, plz, snr, unr);
 	    		gebäudeNrList.add(gebäudeNr);
 	    		int gebäudeNrTemp=++gebäudeNr;

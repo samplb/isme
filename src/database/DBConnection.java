@@ -16,7 +16,7 @@ public class DBConnection {
 
 
 private final String url = "jdbc:mysql://127.0.0.1:3306/amstec";
-private final String user = "root", pass = "";
+private final String user = "imse", pass = "imse";
 private Connection conn = null;
 
 	public void connect() throws SQLException, InstantiationException, IllegalAccessException
@@ -90,7 +90,7 @@ private Connection conn = null;
 			final PreparedStatement insert = conn.prepareStatement("INSERT INTO "
 					+ "`unternehmen`(`name`,`unr`) VALUES (?, ?)");
 		    insert.setString(1, name);
-		    insert.setInt(2, nr);
+		    insert.setInt(2, 123);
 		    insert.execute();
 		    insert.close();
 		    
