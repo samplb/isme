@@ -35,8 +35,8 @@ public class CreateGebaeudeDoc {
 		doc.append("plz", actual.getPlz());
 		doc.append("unternehmen", actual.getUnternehmen());
 		List<Buero> bueroList=actual.getBuerogebaudeList();
-		ArrayList<Document> geb=new ArrayList<>();
-		ArrayList<Integer> mitList=new ArrayList<>();
+		ArrayList<Document> geb=new ArrayList<Document>();
+		ArrayList<Integer> mitList=new ArrayList<Integer>();
 		// wenn bueros dabei, mit mitarbeiterliste hinzufügen
 		if(bueroList==null) {
 			doc.append("buero", null);
