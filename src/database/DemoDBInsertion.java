@@ -30,6 +30,7 @@ public class DemoDBInsertion {
 		final DBConnection connection = new DBConnection();
 		try {
 			connection.connect();
+			//connection.dropTables();
 			connection.createTables();
 		} catch (InstantiationException | IllegalAccessException | SQLException e) {
 			// TODO Auto-generated catch block
