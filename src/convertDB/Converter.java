@@ -22,6 +22,7 @@ import modelsMongoDb.Exceptions.NoGebaeudeDocException;
 import modelsMongoDb.Exceptions.NoGebaudeDocException;
 import modelsMongoDb.createDocs.CreateFahrzeugDoc;
 import modelsMongoDb.createDocs.CreateGebaeudeDoc;
+import modelsMongoDb.createDocs.CreateGebaeudeDocBasicVersion;
 import modelsMongoDb.createDocs.CreateMitarbeiterDoc;
 import modelsSQL.Buero;
 import modelsSQL.Garage;
@@ -38,7 +39,7 @@ public class Converter {
 			sqlconnection=x.getConnection();
 			mongoConnection.connect();
 			mongoDb=mongoConnection.createDatabase(ConnectionTerms.DATABASENAME);
-//un-comment if database is already filled
+//un-comment if database is already filled and you want to reset.
 			//mongoConnection.dropDatabase(mongoDb);
 			mongoclient=mongoConnection.getConnection();
 			
@@ -49,7 +50,11 @@ public class Converter {
 	/**
 	 * creates a List with GebaudeDoc objects according to sql connection specified in DBConnection.getConnection().
 	 * @return List<GebaeudeDoc>
+	 * @throws Exception 
 	 */
+	public void reset() throws Exception {
+			mongoConnection.dropDatabase(mongoDb);
+	}
 	public List<GebaeudeDoc> loadCollectionGebaeude() {
 		List<GebaeudeDoc> gebaeudeDocsList=new ArrayList<>();;
 		GebaeudeDoc created=null;
@@ -230,13 +235,17 @@ public class Converter {
 	 * @return BasicDBObject
 	 * @throws NoGebaudeDocException 
 	 */
-	public Document createGebaeudeDocument(GebaeudeDoc gebaeudeDoc) throws NoGebaudeDocException {
+	public Document createPrettyGebaeudeDocument(GebaeudeDoc gebaeudeDoc) throws NoGebaudeDocException {
 		CreateGebaeudeDoc gx=new CreateGebaeudeDoc();
 		gx.createGebaeudeDoc(gebaeudeDoc);
 		return gx.getDoc();
 	}
 	
-	
+	public List<Document> createBasicGebaeudeDocument(GebaeudeDoc gebaeudeDoc) throws NoGebaudeDocException {
+		CreateGebaeudeDocBasicVersion gx=new CreateGebaeudeDocBasicVersion();
+		gx.createGebaeudeDoc(gebaeudeDoc);
+		return gx.getDoc();
+	}
 	
 	
 //Depracated Methods:

@@ -28,7 +28,7 @@ public class Verwaltung {
 	 * Liest die Daten der Mysql DB aus und fügt sie als mongodb ein
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String args) {
 		final MongoDBConnection mongoConnection= new MongoDBConnection();
 		MongoCollection<Document> fahrzeugColl=null;
 		MongoCollection<Document> mitarbeiterColl=null;
@@ -49,21 +49,41 @@ public class Verwaltung {
 			ArrayList<Document> gDocList=new ArrayList<>();
 			ArrayList<Document> mDocList=new ArrayList<>();
 			ArrayList<Document> fDocList=new ArrayList<>();
-			for (GebaeudeDoc a:conv.loadCollectionGebaeude()) {
-				gDocList.add(conv.createGebaeudeDocument(a));
+			if(args.matches("basicmongo")) {
+				for (GebaeudeDoc a:conv.loadCollectionGebaeude()) {
+					gDocList.addAll(conv.createBasicGebaeudeDocument(a));
+				}
+				for(MitarbeiterDoc b:conv.loadMongoCollectionMitarbeiter()) {
+					mDocList.add(conv.createMitarbeiterDocument(b));
+				}
+				for(FahrzeugDoc c:conv.loadMongoCollectionFahrzeug()) {
+					fDocList.add(conv.createFahrzeugDocument(c));
+				}
+				gebaeudeColl.insertMany(gDocList);
+				System.out.println("insertBasicGebaeudeCollection");
+				mitarbeiterColl.insertMany(mDocList);
+				System.out.println("insertBasicMitarbeiterCollection");
+				fahrzeugColl.insertMany(fDocList);
+				System.out.println("insertBasicFahrzeugCollection");
+			} else if(args.matches("prettymongo")) {
+				for (GebaeudeDoc a:conv.loadCollectionGebaeude()) {
+					gDocList.add(conv.createPrettyGebaeudeDocument(a));
+				}
+				for(MitarbeiterDoc b:conv.loadMongoCollectionMitarbeiter()) {
+					mDocList.add(conv.createMitarbeiterDocument(b));
+				}
+				for(FahrzeugDoc c:conv.loadMongoCollectionFahrzeug()) {
+					fDocList.add(conv.createFahrzeugDocument(c));
+				}
+				gebaeudeColl.insertMany(gDocList);
+				System.out.println("insertPrettyGebaeudeCollection");
+				mitarbeiterColl.insertMany(mDocList);
+				System.out.println("insertPrettyMitarbeiterCollection");
+				fahrzeugColl.insertMany(fDocList);
+				System.out.println("insertPrettyFahrzeugCollection");
+			} else {
+				System.out.println("no option available");
 			}
-			for(MitarbeiterDoc b:conv.loadMongoCollectionMitarbeiter()) {
-				mDocList.add(conv.createMitarbeiterDocument(b));
-			}
-			for(FahrzeugDoc c:conv.loadMongoCollectionFahrzeug()) {
-				fDocList.add(conv.createFahrzeugDocument(c));
-			}
-			gebaeudeColl.insertMany(gDocList);
-			System.out.println("insertGebaeudeCollection");
-			mitarbeiterColl.insertMany(mDocList);
-			System.out.println("insertMitarbeiterCollection");
-			fahrzeugColl.insertMany(fDocList);
-			System.out.println("insertFahrzeugCollection");
 		}catch (NoGebaudeDocException e) {
 			e.printStackTrace(System.err);
 		} catch (NoGebaeudeDocException e) {
@@ -74,5 +94,8 @@ public class Verwaltung {
 			e.printStackTrace(System.err);
 		}
 	}
-
+	public static void reset() throws Exception {
+		Converter conv=new Converter();
+		conv.reset();
+	}
 }

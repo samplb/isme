@@ -30,7 +30,6 @@ public class DemoDBInsertion {
 		final DBConnection connection = new DBConnection();
 		try {
 			connection.connect();
-			connection.dropTables();
 			connection.createTables();
 		} catch (InstantiationException | IllegalAccessException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -251,6 +250,12 @@ public class DemoDBInsertion {
 		System.out.println("Finished Loading Datasets");
 	}
 	
+	public static void reset() throws Exception {
+		final DBConnection connection = new DBConnection();
+			connection.connect();
+			connection.dropTables();
+			connection.createTables();
+	}
 	/**
 	 * @return a random String from given Array
 	 * 

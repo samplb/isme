@@ -23,7 +23,7 @@ public class CreateMitarbeiterDoc {
 		if(actual==null) throw new NoGebaeudeDocException();
 		doc=new Document();
 		doc.append("mNr", actual.getmNr());
-		doc.append("name", actual.getVorname());
+		doc.append("Mitname", actual.getVorname());
 		doc.append("nachname", actual.getNachname());
 		doc.append("unternehmen", actual.getUnternehmen());
 		doc.append("chef", actual.getChef());
