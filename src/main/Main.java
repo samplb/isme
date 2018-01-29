@@ -3,6 +3,7 @@
  */
 package main;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 import database.DemoDBInsertion;
 import convertDB.Verwaltung;
@@ -59,6 +60,9 @@ public class Main {
 				}
 			}
 		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

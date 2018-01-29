@@ -21,8 +21,9 @@ public class DemoDBInsertion {
 	/**
 	 * @param args
 	 * fügt Random werte ein.
+	 * @throws SQLException 
 	 */
-	public static void main(String[] args)  {
+	public static void main(String[] args) throws SQLException  {
 		ArrayList<Integer> mechNrList=new ArrayList<>(),
 							bNrList=new ArrayList<>(),
 							kundenNrList=new ArrayList<>(),
@@ -247,6 +248,7 @@ public class DemoDBInsertion {
 	   	        	break;
 	   	    }
 		}
+		connection.disconnect();
 		System.out.println("Finished Loading Datasets");
 	}
 	/**
@@ -275,6 +277,7 @@ public class DemoDBInsertion {
 			connection.connect();
 			connection.dropTables();
 			connection.createTables();
+			connection.disconnect();
 	}
 	/**
 	 * @return a random String from given Array
