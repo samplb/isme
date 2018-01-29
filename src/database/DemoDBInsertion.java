@@ -5,6 +5,7 @@ package database;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import constants.MySqlTerms;
 
@@ -13,7 +14,10 @@ import constants.MySqlTerms;
  *
  */
 public class DemoDBInsertion {
-
+	private static ArrayList<Integer> mechNrListGes=new ArrayList<>(),
+			bueroNrListGes=new ArrayList<>(),
+			kundenNrListGes=new ArrayList<>();
+	private static final DBConnection connection = new DBConnection();
 	/**
 	 * @param args
 	 * fügt Random werte ein.
@@ -27,10 +31,9 @@ public class DemoDBInsertion {
 							bueroNrList=new ArrayList<>(),
 							garageNrList=new ArrayList<>();
 	
-		final DBConnection connection = new DBConnection();
 		try {
 			connection.connect();
-			//connection.dropTables();
+			connection.dropTables();
 			connection.createTables();
 		} catch (InstantiationException | IllegalAccessException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -128,6 +131,9 @@ public class DemoDBInsertion {
 	    		}
 	    	}
 	    }
+	    kundenNrListGes=kundenNrList;
+	    bueroNrListGes=bueroNrList;
+	    mechNrListGes=mechNrList;
 	    //schutz
 	    //    connection.disconnect();
 	     //   connection.connect();
@@ -163,7 +169,7 @@ public class DemoDBInsertion {
 	    		int bnr;
 	    		int gnr;
 	    		while(!buenr) {
-	    			int anzahlmit=randomIntExclNull(MySqlTerms.maxMitarbeiter);
+	    			int anzahlmit=randomIntExclNull(MySqlTerms.maxMitarbeiter/3);
 	    			int bList=bNrList.size()+1;
 	    			bnr=gebäudeNrList.size()-1;
 	    			gnr=gebäudeNrList.get(bnr);
@@ -176,17 +182,13 @@ public class DemoDBInsertion {
 	  	   	        	System.err.println("ENDEBüro wegen ERROR");
 	  	   	        	return;
 	  	   	        }
-	    			if(knum<0) continue;
-	    			mnr=kundenNrList.get(knum);
-	    			knum--;
-	    			bueroMit=connection.neuesBueroMit(bList, mnr, gnr);
-	    			;
+	    			neuerMitEintrag(gnr, bList,"buero",anzahlmit); 
 	    		}
 	    	} else {
 //neue Garage
 	    		boolean ganr=false;
 	    		while(!ganr) {
-	    			int anzahlmit=randomInt(MySqlTerms.maxMitarbeiter);
+	    			int anzahlmit=randomInt(MySqlTerms.maxMitarbeiter/3);
 	    			int gnr;
 	    			int garnr=garageNrList.size()+1;
 	    			gnr=gebäudeNrList.get(gebäudeNrList.size()-1 );
@@ -200,10 +202,7 @@ public class DemoDBInsertion {
 	  	   	        	System.err.println("ENDEBüro wegen ERROR");
 	  	   	        	return;
 	  	   	        }
-	    			if(knum<0) continue;
-	    			mnr=kundenNrList.get(knum);
-	    			knum--;
-	    			bueroMit=connection.neueGarageMit(mnr,garageMit, gnr);
+	    			neuerMitEintrag(gnr,garageMit,"garage",anzahlmit);
 	    		}
 	    	}
 	    }
@@ -250,7 +249,27 @@ public class DemoDBInsertion {
 		}
 		System.out.println("Finished Loading Datasets");
 	}
-	
+	/**
+	 * erzeugt eintrag in entweder GarageMit oder BueroMit
+	 * @param gnr
+	 * @param bList oder garageMit
+	 */
+	private static void neuerMitEintrag(int gnr, int num,String type,int anzahl) {
+		int a=anzahl;
+		ArrayList<Integer> tempKNr=kundenNrListGes;
+		Collections.shuffle(tempKNr);
+		for(int u:tempKNr) {
+			if(mechNrListGes.contains(u) && type.matches("garage") && a>0) {
+				int g=connection.neueGarageMit(u,num, gnr);
+				a--;
+			} else if(bueroNrListGes.contains(u) && type.matches("buero") && a>0) {
+    			int h=connection.neuesBueroMit(num, u, gnr);
+    			a--;
+			}
+		}
+		
+	}
+
 	public static void reset() throws Exception {
 		final DBConnection connection = new DBConnection();
 			connection.connect();
